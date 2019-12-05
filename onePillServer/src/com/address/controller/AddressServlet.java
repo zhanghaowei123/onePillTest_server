@@ -1,4 +1,4 @@
-package com.article.controller;
+package com.address.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entity.Address;
-import com.user.dao.AddressDao;
+import com.address.dao.AddressDao;
 
 /**
  * Servlet implementation class AddressServlet
@@ -71,6 +71,7 @@ public class AddressServlet extends HttpServlet {
 				response.getWriter().append("no");
 			}
 			break;
+			
 
 		default:
 			break;
