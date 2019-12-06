@@ -2,6 +2,8 @@ package com.address.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.entity.Address;
+import com.google.gson.Gson;
 import com.address.dao.AddressDao;
 
 /**
@@ -18,6 +21,8 @@ import com.address.dao.AddressDao;
 @WebServlet("/AddressServlet")
 public class AddressServlet extends HttpServlet {
 	private boolean f = false;
+	private AddressDao dao = new AddressDao();
+	private Gson gson = new Gson();
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -56,7 +61,7 @@ public class AddressServlet extends HttpServlet {
 			String userIdString = request.getParameter("UserId");
 			int UserId = Integer.valueOf(userIdString);
 			Address address2 = new Address(UserId, name, phoneNumber, address, more, postalCode);
-			AddressDao dao = new AddressDao();
+			/* AddressDao dao = new AddressDao(); */
 			//存入数据库
 			try {
 				f = dao.add(address2);
@@ -70,6 +75,19 @@ public class AddressServlet extends HttpServlet {
 			}else {
 				response.getWriter().append("no");
 			}
+			break;
+			//查询所有地址
+		case "searchAll":
+			
+			int userId = Integer.parseInt(request.getParameter("UserId"));
+			List<Address> addressList = new ArrayList<Address>();
+			try {
+				addressList = dao.searchByUserId(userId);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				response.getWriter().append(null);
+			}
+			response.getWriter().append(gson.toJson(addressList));
 			break;
 			
 
