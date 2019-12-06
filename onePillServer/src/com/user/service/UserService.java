@@ -1,5 +1,6 @@
 package com.user.service;
 
+import com.entity.Doctor;
 import com.entity.User;
 import com.user.dao.UserDao;
 
@@ -12,6 +13,9 @@ public class UserService {
 	}
 	public User PatientLoginService(String phone,String password){
 		return new UserDao().userLogin(phone, password);
+	}
+	public Doctor DoctorLoginService(String phone,String password){
+		return new UserDao().doctorLogin(phone, password);
 	}
 }
 
